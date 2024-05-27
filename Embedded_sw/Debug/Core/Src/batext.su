@@ -1,0 +1,17 @@
+../Core/Src/batext.c:167:21:bin_search_log	0	static
+../Core/Src/batext.c:89:6:batext_AFE_init	8	static
+../Core/Src/batext.c:105:6:batext_AFE_deinit	8	static
+../Core/Src/batext.c:63:6:batext_power_off	8	static
+../Core/Src/batext.c:120:6:batext_choose_gain	8	static
+../Core/Src/batext.c:46:6:batext_power_on	8	static
+../Core/Src/batext.c:199:6:print_array_q15	24	static
+../Core/Src/batext.c:209:6:print_array_q7	24	static
+../Core/Src/batext.c:219:6:vec_computation	3128	static,ignoring_inline_asm
+../Core/Src/batext.c:279:6:treat_spec	32	static
+../Core/Src/batext.c:333:6:HAL_ADC_ConvCpltCallback	8	static
+../Core/Src/batext.c:338:6:HAL_ADC_ConvHalfCpltCallback	8	static
+../Core/Src/batext.c:350:5:batext_is_card_inserted	8	static
+../Core/Src/batext.c:356:6:batext_SD_init	24	static
+../Core/Src/batext.c:29:5:init_sd_power_on	8	static
+../Core/Src/batext.c:382:6:batext_SD_deinit	8	static
+../Core/Src/batext.c:391:5:batext_SD_write	24	static

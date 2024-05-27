@@ -1,0 +1,11 @@
+../X-CUBE-AI/App/bat_det_net.c:696:9:ai_bat_det_net_get_info	152	static
+../X-CUBE-AI/App/bat_det_net.c:742:9:ai_bat_det_net_get_report	152	static
+../X-CUBE-AI/App/bat_det_net.c:788:10:ai_bat_det_net_get_error	0	static
+../X-CUBE-AI/App/bat_det_net.c:794:10:ai_bat_det_net_create	16	static
+../X-CUBE-AI/App/bat_det_net.c:838:12:ai_bat_det_net_inputs_get	0	static
+../X-CUBE-AI/App/bat_det_net.c:848:12:ai_bat_det_net_outputs_get	0	static
+../X-CUBE-AI/App/bat_det_net.c:858:11:ai_bat_det_net_destroy	0	static
+../X-CUBE-AI/App/bat_det_net.c:864:9:ai_bat_det_net_init	24	static
+../X-CUBE-AI/App/bat_det_net.c:804:10:ai_bat_det_net_create_and_init	88	static
+../X-CUBE-AI/App/bat_det_net.c:881:8:ai_bat_det_net_run	0	static
+../X-CUBE-AI/App/bat_det_net.c:888:8:ai_bat_det_net_forward	0	static

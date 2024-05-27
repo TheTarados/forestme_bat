@@ -1,0 +1,14 @@
+../Core/Src/main.c:242:6:print_array	1
+../Core/Src/main.c:248:6:print_now	1
+../Core/Src/main.c:252:6:print_int	5
+../Core/Src/main.c:280:6:print_error	1
+../Core/Src/main.c:288:6:print_time	1
+../Core/Src/main.c:314:10:get_time	1
+../Core/Src/main.c:331:6:blink	1
+../Core/Src/main.c:339:6:HAL_GPIO_EXTI_Callback	4
+../Core/Src/main.c:365:6:HAL_RTCEx_WakeUpTimerEventCallback	1
+../Core/Src/main.c:388:6:stop_cycle_count	1
+../Core/Src/main.c:403:6:Error_Handler	1
+../Core/Src/main.c:194:6:SystemClock_Config	2
+../Core/Src/main.c:85:5:main	1
+../Core/Src/main.c:373:6:start_cycle_count	2

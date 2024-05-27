@@ -1,0 +1,6 @@
+*lab.npy
+*feat.npy
+annotations
+model.keras
+model_quantized.tflite
+Embdeed_sw/Debug

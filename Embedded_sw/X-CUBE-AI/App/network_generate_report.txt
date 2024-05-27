@@ -1,0 +1,180 @@
+Neural Network Tools for STM32 family v1.7.0 (stm.ai v8.1.0-19520)
+Created date          : 2023-12-11 16:39:51
+Parameters            : generate --name network -m /home/base_usr/TFE_Python/quantization_DEFAULT_8bit_model_h5_to_tflite.tflite --type tflite --compression none --verbosity 1 --workspace /tmp/mxAI_workspace118617895557611956428289960391906 --output /home/base_usr/.stm32cubemx/network_output --allocate-inputs --series stm32wl --allocate-outputs
+
+Exec/report summary (generate)
+-------------------------------------------------------------------------------------------------------
+model file         :   /home/base_usr/TFE_Python/quantization_DEFAULT_8bit_model_h5_to_tflite.tflite   
+type               :   tflite                                                                          
+c_name             :   network                                                                         
+compression        :   none                                                                            
+options            :   allocate-inputs, allocate-outputs                                               
+optimization       :   balanced                                                                        
+target/series      :   stm32wl                                                                         
+workspace dir      :   /tmp/mxAI_workspace118617895557611956428289960391906                            
+output dir         :   /home/base_usr/.stm32cubemx/network_output                                      
+model_fmt          :   ss/sa per channel                                                               
+model_name         :   quantization_DEFAULT_8bit_model_h5_to_tflite                                    
+model_hash         :   326843bea59102de82310e240fda312d                                                
+params #           :   245 items (272 B)                                                               
+-------------------------------------------------------------------------------------------------------
+input 1/1          :   'serving_default_conv2d_input0' (domain:activations/**default**)                
+                   :   640 items, 2.50 KiB, ai_float, float, (1,64,10,1)                               
+output 1/1         :   'conversion_8' (domain:activations/**default**)                                 
+                   :   1 items, 4 B, ai_float, float, (1,1)                                            
+macc               :   29,764                                                                          
+weights (ro)       :   272 B (272 B) (1 segment) / -708(-72.2%) vs float model                         
+activations (rw)   :   2,560 B (2.50 KiB) (1 segment) *                                                
+ram (total)        :   2,560 B (2.50 KiB) = 2,560 + 0 + 0                                              
+-------------------------------------------------------------------------------------------------------
+(*) 'input'/'output' buffers can be used from the activations buffer
+
+Model name - quantization_DEFAULT_8bit_model_h5_to_tflite ['serving_default_conv2d_input0'] ['conversion_8']
+------ ------------------------------------------------------------------------------------------------------------ -------------------------- ------------ -------- -------------------------------------------------------------------------------------------- --- --------------- ------------------ ------------------------- 
+m_id   layer (type,original)                                                                                        oshape                     param/size       macc                                                                                 connected to   | c_size          c_macc             c_type                    
+------ ------------------------------------------------------------------------------------------------------------ -------------------------- ------------ -------- -------------------------------------------------------------------------------------------- --- --------------- ------------------ ------------------------- 
+0      serving_default_conv2d_input0 (Input, )                                                                      [b:1,h:64,h:64,w:10,c:1]                                                                                                                        |                 +1,280(+100.0%)    converter_oi8[0]          
+       conversion_0 (Conversion, QUANTIZE)                                                                          [b:1,h:64,h:64,w:10,c:1]                   1,280                                                                serving_default_conv2d_input0   |                 -1,280(-100.0%)    
+------ ------------------------------------------------------------------------------------------------------------ -------------------------- ------------ -------- -------------------------------------------------------------------------------------------- --- --------------- ------------------ ------------------------- 
+1      conv2d_1 (Conv2D, CONV_2D)                                                                                   [b:1,h:62,h:62,w:8,c:4]    40/52          17,860                                                                                 conversion_0   | -52(-100.0%)    -17,860(-100.0%)   
+       nl_1_nl (Nonlinearity, CONV_2D)                                                                              [b:1,h:62,h:62,w:8,c:4]                    1,984                                                                                     conv2d_1   |                 -1,984(-100.0%)    
+------ ------------------------------------------------------------------------------------------------------------ -------------------------- ------------ -------- -------------------------------------------------------------------------------------------- --- --------------- ------------------ ------------------------- 
+2      pool_2 (Pool, MAX_POOL_2D)                                                                                   [b:1,h:31,h:31,w:4,c:4]                    1,984                                                                                      nl_1_nl   | +52(+100.0%)    +17,860(+900.2%)   optimized_conv2d_oi8[1]   
+------ ------------------------------------------------------------------------------------------------------------ -------------------------- ------------ -------- -------------------------------------------------------------------------------------------- --- --------------- ------------------ ------------------------- 
+3      conv2d_3 (Conv2D, CONV_2D)                                                                                   [b:1,h:29,h:29,w:2,c:4]    148/160         8,356                                                                                       pool_2   | -160(-100.0%)   -8,356(-100.0%)    
+       nl_3_nl (Nonlinearity, CONV_2D)                                                                              [b:1,h:29,h:29,w:2,c:4]                      232                                                                                     conv2d_3   |                 -232(-100.0%)      
+------ ------------------------------------------------------------------------------------------------------------ -------------------------- ------------ -------- -------------------------------------------------------------------------------------------- --- --------------- ------------------ ------------------------- 
+4      pool_4 (Pool, MAX_POOL_2D)                                                                                   [b:1,h:14,h:14,w:1,c:4]                      224                                                                                      nl_3_nl   | +160(+100.0%)   +8,356(+3730.4%)   optimized_conv2d_oi8[2]   
+------ ------------------------------------------------------------------------------------------------------------ -------------------------- ------------ -------- -------------------------------------------------------------------------------------------- --- --------------- ------------------ ------------------------- 
+5      reshape_5 (Reshape, RESHAPE)                                                                                 [b:1,c:56]                                                                                                                             pool_4   |                                    
+------ ------------------------------------------------------------------------------------------------------------ -------------------------- ------------ -------- -------------------------------------------------------------------------------------------- --- --------------- ------------------ ------------------------- 
+6      sequential_quant_dense_MatMulsequential_quant_dense_LastValueQuant_FakeQuantWithMinMaxVars (Placeholder, )   [b:1,c:56]                 56/56                                                                                                                | +4(+7.1%)       +57(+100.0%)       dense_oi8[3]              
+       sequential_quant_dense_BiasAdd_ReadVariableOp (Placeholder, )                                                [c:1]                      1/4                                                                                                                  | -4(-100.0%)                        
+       gemm_6 (Gemm, FULLY_CONNECTED)                                                                               [b:1,c:1]                                     57                                                                                    reshape_5   |                 -57(-100.0%)       
+                                                                                                                                                                       sequential_quant_dense_MatMulsequential_quant_dense_LastValueQuant_FakeQuantWithMinMaxVars   | 
+                                                                                                                                                                                                                    sequential_quant_dense_BiasAdd_ReadVariableOp   | 
+------ ------------------------------------------------------------------------------------------------------------ -------------------------- ------------ -------- -------------------------------------------------------------------------------------------- --- --------------- ------------------ ------------------------- 
+7      nl_7 (Nonlinearity, LOGISTIC)                                                                                [b:1,c:1]                                     10                                                                                       gemm_6   |                 -9(-90.0%)         nl_oi8[4]                 
+------ ------------------------------------------------------------------------------------------------------------ -------------------------- ------------ -------- -------------------------------------------------------------------------------------------- --- --------------- ------------------ ------------------------- 
+8      conversion_8 (Conversion, DEQUANTIZE)                                                                        [b:1,c:1]                                      2                                                                                         nl_7   |                                    converter_of32[o][5]      
+------ ------------------------------------------------------------------------------------------------------------ -------------------------- ------------ -------- -------------------------------------------------------------------------------------------- --- --------------- ------------------ ------------------------- 
+model/c-model: macc=31,989/29,764 -2,225(-7.0%) weights=272/272  activations=--/2,560 io=--/0
+
+
+
+Generated C-graph summary
+------------------------------------------------------------------------------------------------------------------------
+model name            : quantization_default_8bit_model_h5_to_tflite
+c-name                : network
+c-node #              : 6
+c-array #             : 18
+activations size      : 2560 (1 segment)
+weights size          : 272 (1 segment)
+macc                  : 29764
+inputs                : ['serving_default_conv2d_input0_output']
+outputs               : ['conversion_8_output']
+
+C-Arrays (18)
+------ -------------------------------------- ----------- ------------------------- --------------- ------------ --------- 
+c_id   name (*_array)                         item/size   domain/mem-pool           c-type          fmt          comment   
+------ -------------------------------------- ----------- ------------------------- --------------- ------------ --------- 
+0      serving_default_conv2d_input0_output   640/2560    activations/**default**   float           float32      /input    
+1      conversion_0_output                    640/640     activations/**default**   int8_t          sa8                    
+2      conv2d_1_output                        496/496     activations/**default**   int8_t          sa8                    
+3      conv2d_1_scratch0                      164/164     activations/**default**   int8_t          s8                     
+4      conv2d_3_output                        56/56       activations/**default**   int8_t          sa8                    
+5      gemm_6_output                          1/1         activations/**default**   int8_t          sa8                    
+6      conv2d_1_scratch1                      64/64       activations/**default**   int8_t          sa8                    
+7      nl_7_output                            1/1         activations/**default**   int8_t          sa8                    
+8      conversion_8_output                    1/4         activations/**default**   float           float32      /output   
+9      conv2d_1_weights                       36/36       weights/weights           const int8_t    ss8/ch(4)              
+10     conv2d_1_bias                          4/16        weights/weights           const int32_t   ss32/ch(4)             
+11     conv2d_3_scratch0                      488/488     activations/**default**   int8_t          s8                     
+12     conv2d_3_weights                       144/144     weights/weights           const int8_t    ss8/ch(4)              
+13     conv2d_3_scratch1                      16/16       activations/**default**   int8_t          sa8                    
+14     conv2d_3_bias                          4/16        weights/weights           const int32_t   ss32/ch(4)             
+15     gemm_6_weights                         56/56       weights/weights           const int8_t    ss8                    
+16     gemm_6_scratch0                        56/112      activations/**default**   int16_t         s16                    
+17     gemm_6_bias                            1/4         weights/weights           const int32_t   ss32                   
+------ -------------------------------------- ----------- ------------------------- --------------- ------------ --------- 
+
+C-Layers (6)
+------ ---------------- ---- ------------------- ------- ----- ----------------------------------------- ------------------ 
+c_id   name (*_layer)   id   layer_type          macc    rom   tensors                                   shape (array id)   
+------ ---------------- ---- ------------------- ------- ----- ----------------------------------------- ------------------ 
+0      conversion_0     0    converter           1280    0     I: serving_default_conv2d_input0_output   (1,64,10,1) (0)    
+                                                               O: conversion_0_output                    (1,64,10,1) (1)    
+------ ---------------- ---- ------------------- ------- ----- ----------------------------------------- ------------------ 
+1      conv2d_1         2    optimized_conv2d    19844   52    I: conversion_0_output                    (1,64,10,1) (1)    
+                                                               S: conv2d_1_scratch0                                         
+                                                               S: conv2d_1_scratch1                                         
+                                                               W: conv2d_1_weights                       (1,3,3,4) (9)      
+                                                               W: conv2d_1_bias                          (4,) (10)          
+                                                               O: conv2d_1_output                        (1,31,4,4) (2)     
+------ ---------------- ---- ------------------- ------- ----- ----------------------------------------- ------------------ 
+2      conv2d_3         4    optimized_conv2d    8580    160   I: conv2d_1_output                        (1,31,4,4) (2)     
+                                                               S: conv2d_3_scratch0                                         
+                                                               S: conv2d_3_scratch1                                         
+                                                               W: conv2d_3_weights                       (4,3,3,4) (12)     
+                                                               W: conv2d_3_bias                          (4,) (14)          
+                                                               O: conv2d_3_output                        (1,14,1,4) (4)     
+------ ---------------- ---- ------------------- ------- ----- ----------------------------------------- ------------------ 
+3      gemm_6           6    dense               57      60    I: conv2d_3_output0                       (1,56) (4)         
+                                                               S: gemm_6_scratch0                                           
+                                                               W: gemm_6_weights                         (56,1) (15)        
+                                                               W: gemm_6_bias                            (1,) (17)          
+                                                               O: gemm_6_output                          (1,1) (5)          
+------ ---------------- ---- ------------------- ------- ----- ----------------------------------------- ------------------ 
+4      nl_7             7    nl                  1       0     I: gemm_6_output                          (1,1) (5)          
+                                                               O: nl_7_output                            (1,1) (7)          
+------ ---------------- ---- ------------------- ------- ----- ----------------------------------------- ------------------ 
+5      conversion_8     8    converter           2       0     I: nl_7_output                            (1,1) (7)          
+                                                               O: conversion_8_output                    (1,1) (8)          
+------ ---------------- ---- ------------------- ------- ----- ----------------------------------------- ------------------ 
+
+
+
+Number of operations per c-layer
+------- ------ ----------------------------- -------- ------------- -------- ---------- 
+c_id    m_id   name (type)                        #op          type   #param   sparsity 
+------- ------ ----------------------------- -------- ------------- -------- ---------- 
+0       0      conversion_0 (converter)         1,280   conv_f32_s8          
+1       2      conv2d_1 (optimized_conv2d)     19,844    smul_s8_s8       40     0.0000 
+2       4      conv2d_3 (optimized_conv2d)      8,580    smul_s8_s8      148     0.0000 
+3       6      gemm_6 (dense)                      57    smul_s8_s8       57     0.0000 
+4       7      nl_7 (nl)                            1      op_s8_s8          
+5       8      conversion_8 (converter)             2   conv_s8_f32          
+------- ------ ----------------------------- -------- ------------- -------- ---------- 
+total                                          29,764                    245     0.0000 
+
+Number of operation types
+---------------- -------- ----------- 
+operation type          #           % 
+---------------- -------- ----------- 
+conv_f32_s8         1,280        4.3% 
+smul_s8_s8         28,481       95.7% 
+op_s8_s8                1        0.0% 
+conv_s8_f32             2        0.0% 
+
+Complexity report (model)
+------ -------------------------------------------------------------------------------------------- ------------------------- ------------------------- ------ 
+m_id   name                                                                                         c_macc                    c_rom                     c_id   
+------ -------------------------------------------------------------------------------------------- ------------------------- ------------------------- ------ 
+0      serving_default_conv2d_input0                                                                |                  4.3%   |                  0.0%   [0]    
+2      pool_2                                                                                       ||||||||||||||||  66.7%   |||||             19.1%   [1]    
+4      pool_4                                                                                       |||||||           28.8%   ||||||||||||||||  58.8%   [2]    
+6      sequential_quant_dense_MatMulsequential_quant_dense_LastValueQuant_FakeQuantWithMinMaxVars   |                  0.2%   ||||||            22.1%   [3]    
+7      nl_7                                                                                         |                  0.0%   |                  0.0%   [4]    
+8      conversion_8                                                                                 |                  0.0%   |                  0.0%   [5]    
+------ -------------------------------------------------------------------------------------------- ------------------------- ------------------------- ------ 
+macc=29,764 weights=272 act=2,560 ram_io=0
+
+Generated files (7)
+------------------------------------------------------------------ 
+/home/base_usr/.stm32cubemx/network_output/network_config.h        
+/home/base_usr/.stm32cubemx/network_output/network.h               
+/home/base_usr/.stm32cubemx/network_output/network.c               
+/home/base_usr/.stm32cubemx/network_output/network_data_params.h   
+/home/base_usr/.stm32cubemx/network_output/network_data_params.c   
+/home/base_usr/.stm32cubemx/network_output/network_data.h          
+/home/base_usr/.stm32cubemx/network_output/network_data.c          
