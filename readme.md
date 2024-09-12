@@ -2,6 +2,8 @@
 
 ForestMEvBat is the repository containing the code base produced for the Thomas ANTOINE's master thesis. The project is based on [ForestMEv2-public](https://forge.uclouvain.be/nbrusselmans/forestmev2-public) by Nicolas BRUSSELMANS. 
 
+All of the data needed to train the models is available at https://doi.org/10.14428/DVN/92ZO97.
+
 The project is separated between 4 folders:
 - [Embedded_sw](Embedded_sw): the STM project to program the board
 - [Annotation_generation](Annotation_generation): transform raw binary data into a usable sound clip dataset and generate annotations
